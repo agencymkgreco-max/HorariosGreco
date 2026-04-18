@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRESANOVA - Sistema de Élite 1%</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a1a1a;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .time-block {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #764ba2;
+        }
+        
+        .time-block h3 {
+            color: #764ba2;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .task:last-child {
+            border-bottom: none;
+        }
+        
+        .task input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .task label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .task input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+        
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .pillar-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .pillar-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .pillar-card h4 {
+            color: #1a1a1a;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .pillar-card .goal {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .pillar-card input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        
+        .pillar-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        button.primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        button.primary:hover {
+            background: #764ba2;
+        }
+        
+        .monthly-goals {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .goal-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .goal-header h4 {
+            color: #1a1a1a;
+            font-size: 16px;
+        }
+        
+        .goal-percent {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 GRESANOVA</h1>
+            <p>Sistema de Élite 1% - Rutina Personalizada</p>
+        </div>
+        
+        <div class="content">
+            <!-- ESTADÍSTICAS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Progreso Diario</h3>
+                    <div class="stat-value" id="daily-progress">0%</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Racha de Días</h3>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Nivel Actual</h3>
+                    <div class="stat-value" id="level">1</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Progreso Semanal</h3>
+                    <div class="stat-value" id="weekly-progress">0%</div>
+                </div>
+            </div>
+            
+            <!-- RUTINA DIARIA -->
+            <div class="section">
+                <h2>📅 Rutina Diaria (5 AM - 10:30 PM)</h2>
+                
+                <!-- MAÑANA -->
+                <div class="time-block">
+                    <h3>🌅 Mañana (5:00 AM - 7:00 AM)</h3>
+                    <div class="task">
+                        <input type="checkbox" id="task1" class="task-morning" onchange="updateProgress()">
+                        <label for="task1">5:00 AM - Meditación/Oración (15 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task2" class="task-morning" onchange="updateProgress()">
+                        <label for="task2">5:20 AM - Ejercicio intenso (40 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task3" class="task-morning" onchange="updateProgress()">
+                        <label for="task3">6:00 AM - Ducha y preparación (30 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task4" class="task-morning" onchange="updateProgress()">
+                        <label for="task4">6:30 AM - Desayuno (30 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task5" class="task-morning" onchange="updateProgress()">
+                        <label for="task5">7:00 AM - GRESANOVA (primera sesión, 3h)</label>
+                    </div>
+                </div>
+                
+                <!-- MEDIODÍA -->
+                <div class="time-block">
+                    <h3>☀️ Mediodía (10:00 AM - 1:00 PM)</h3>
+                    <div class="task">
+                        <input type="checkbox" id="task6" class="task-midday" onchange="updateProgress()">
+                        <label for="task6">10:00 AM - GRESANOVA continuación (2h)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task7" class="task-midday" onchange="updateProgress()">
+                        <label for="task7">12:00 PM - Almuerzo (1h)</label>
+                    </div>
+                </div>
+                
+                <!-- TARDE/UNIVERSIDAD -->
+                <div class="time-block">
+                    <h3>🎓 Universidad/Estudio (1:00 PM - 8:00 PM)</h3>
+                    <div class="task">
+                        <input type="checkbox" id="task8" class="task-afternoon" onchange="updateProgress()">
+                        <label for="task8">1:00 PM - Universidad/Clases (7h)</label>
+                    </div>
+                </div>
+                
+                <!-- NOCHE -->
+                <div class="time-block">
+                    <h3>🌙 Noche (8:00 PM - 10:30 PM)</h3>
+                    <div class="task">
+                        <input type="checkbox" id="task9" class="task-night" onchange="updateProgress()">
+                        <label for="task9">8:00 PM - Cena + descanso (30 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task10" class="task-night" onchange="updateProgress()">
+                        <label for="task10">8:30 PM - Estudio político/adicional (1h)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task11" class="task-night" onchange="updateProgress()">
+                        <label for="task11">9:30 PM - Oración/reflexión (30 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task12" class="task-night" onchange="updateProgress()">
+                        <label for="task12">10:00 PM - Planificación de mañana (15 min)</label>
+                    </div>
+                    <div class="task">
+                        <input type="checkbox" id="task13" class="task-night" onchange="updateProgress()">
+                        <label for="task13">10:15 PM - Dormir (preparación)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PILARES SEMANALES -->
+            <div class="section">
+                <h2>💪 Pilares Semanales</h2>
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <h4>💼 GRESANOVA</h4>
+                        <p class="goal">Meta: 30h/semana</p>
+                        <input type="range" min="0" max="40" value="0" id="pillar-gresanova" onchange="updateWeekly()">
+                        <div class="pillar-value" id="val-gresanova">0h</div>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>🏋️ Ejercicio</h4>
+                        <p class="goal">Meta: 5.5h/semana</p>
+                        <input type="range" min="0" max="10" value="0" id="pillar-exercise" onchange="updateWeekly()">
+                        <div class="pillar-value" id="val-exercise">0h</div>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>🎓 Universidad</h4>
+                        <p class="goal">Meta: 35h/semana</p>
+                        <input type="range" min="0" max="50" value="0" id="pillar-university" onchange="updateWeekly()">
+                        <div class="pillar-value" id="val-university">0h</div>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>🏛️ Política</h4>
+                        <p class="goal">Meta: 7h/semana</p>
+                        <input type="range" min="0" max="15" value="0" id="pillar-politics" onchange="updateWeekly()">
+                        <div class="pillar-value" id="val-politics">0h</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OBJETIVOS MENSUALES -->
+            <div class="section">
+                <h2>🎯 Objetivos Mensuales</h2>
+                <div class="monthly-goals">
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Crecimiento GRESANOVA</h4>
+                            <span class="goal-percent" id="goal-gresanova">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="fill-gresanova" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Salud Física</h4>
+                            <span class="goal-percent" id="goal-exercise">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="fill-exercise" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Educación Académica</h4>
+                            <span class="goal-percent" id="goal-university">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="fill-university" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Conocimiento Político</h4>
+                            <span class="goal-percent" id="goal-politics">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="fill-politics" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <h4>Espiritualidad</h4>
+                            <span class="goal-percent" id="goal-spiritual">95%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="fill-spiritual" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BOTONES -->
+            <div class="button-group">
+                <button onclick="resetDay()">🔄 Reiniciar Día</button>
+                <button onclick="downloadReport()" class="primary">📥 Descargar Reporte</button>
+                <button onclick="downloadJSON()" class="primary">💾 Guardar Progreso</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>GRESANOVA 1% Elite System | Diseñado para tu éxito | Última actualización: <span id="date"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Cargar datos guardados
+        function loadData() {
+            const saved = localStorage.getItem('gresanova_data');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data.tasks).forEach(taskId => {
+                    const elem = document.getElementById(taskId);
+                    if (elem) elem.checked = data.tasks[taskId];
+                });
+                Object.keys(data.pillars).forEach(pillarId => {
+                    const elem = document.getElementById(pillarId);
+                    if (elem) elem.value = data.pillars[pillarId];
+                });
+            }
+            updateProgress();
+            updateWeekly();
+            updateDate();
+        }
+        
+        function updateDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = new Date().toLocaleDateString('es-ES', options);
+        }
+        
+        function updateProgress() {
+            const allTasks = document.querySelectorAll('.task-morning, .task-midday, .task-afternoon, .task-night');
+            const checked = document.querySelectorAll('.task-morning:checked, .task-midday:checked, .task-afternoon:checked, .task-night:checked').length;
+            const percentage = Math.round((checked / allTasks.length) * 100);
+            
+            document.getElementById('daily-progress').textContent = percentage + '%';
+            document.getElementById('level').textContent = Math.floor(percentage / 25) + 1;
+            
+            const morningDone = document.querySelectorAll('.task-morning:checked').length;
+            const morningTotal = document.querySelectorAll('.task-morning').length;
+            document.getElementById('streak').textContent = morningDone === morningTotal ? '✓ Día completado' : '○ En progreso';
+            
+            saveData();
+        }
+        
+        function updateWeekly() {
+            const gresanova = parseInt(document.getElementById('pillar-gresanova').value) || 0;
+            const exercise = parseInt(document.getElementById('pillar-exercise').value) || 0;
+            const university = parseInt(document.getElementById('pillar-university').value) || 0;
+            const politics = parseInt(document.getElementById('pillar-politics').value) || 0;
+            
+            document.getElementById('val-gresanova').textContent = gresanova + 'h';
+            document.getElementById('val-exercise').textContent = exercise + 'h';
+            document.getElementById('val-university').textContent = university + 'h';
+            document.getElementById('val-politics').textContent = politics + 'h';
+            
+            const grPct = Math.round((gresanova / 40) * 100);
+            const exPct = Math.round((exercise / 10) * 100);
+            const unPct = Math.round((university / 50) * 100);
+            const poPct = Math.round((politics / 15) * 100);
+            
+            document.getElementById('goal-gresanova').textContent = grPct + '%';
+            document.getElementById('goal-exercise').textContent = exPct + '%';
+            document.getElementById('goal-university').textContent = unPct + '%';
+            document.getElementById('goal-politics').textContent = poPct + '%';
+            
+            document.getElementById('fill-gresanova').style.width = Math.min(grPct, 100) + '%';
+            document.getElementById('fill-exercise').style.width = Math.min(exPct, 100) + '%';
+            document.getElementById('fill-university').style.width = Math.min(unPct, 100) + '%';
+            document.getElementById('fill-politics').style.width = Math.min(poPct, 100) + '%';
+            
+            const weeklyAvg = Math.round((grPct + exPct + unPct + poPct) / 4);
+            document.getElementById('weekly-progress').textContent = weeklyAvg + '%';
+            
+            saveData();
+        }
+        
+        function saveData() {
+            const tasks = {};
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                if (cb.id) tasks[cb.id] = cb.checked;
+            });
+            
+            const pillars = {};
+            document.querySelectorAll('input[type="range"]').forEach(r => {
+                if (r.id) pillars[r.id] = r.value;
+            });
+            
+            localStorage.setItem('gresanova_data', JSON.stringify({ tasks, pillars }));
+        }
+        
+        function resetDay() {
+            if (confirm('¿Deseas reiniciar el día? (Se mantiene progreso semanal)')) {
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+                updateProgress();
+            }
+        }
+        
+        function downloadReport() {
+            const allTasks = document.querySelectorAll('.task-morning, .task-midday, .task-afternoon, .task-night');
+            const checked = document.querySelectorAll('.task-morning:checked, .task-midday:checked, .task-afternoon:checked, .task-night:checked').length;
+            
+            const report = `
+╔═══════════════════════════════════════════════════════════╗
+║           GRESANOVA - REPORTE DE PROGRESO                 ║
+╚═══════════════════════════════════════════════════════════╝
+
+📅 Fecha: ${new Date().toLocaleDateString('es-ES')}
+⏰ Hora: ${new Date().toLocaleTimeString('es-ES')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 RESUMEN DIARIO:
+   • Tareas Completadas: ${checked}/${allTasks.length}
+   • Porcentaje: ${Math.round((checked / allTasks.length) * 100)}%
+   • Mañana: ${document.querySelectorAll('.task-morning:checked').length}/5
+   • Tarde: ${document.querySelectorAll('.task-afternoon:checked').length}/8
+   • Noche: ${document.querySelectorAll('.task-night:checked').length}/5
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💼 PILARES SEMANALES:
+   • GRESANOVA: ${document.getElementById('val-gresanova').textContent} (Meta: 40h)
+   • Ejercicio: ${document.getElementById('val-exercise').textContent} (Meta: 10h)
+   • Universidad: ${document.getElementById('val-university').textContent} (Meta: 50h)
+   • Política: ${document.getElementById('val-politics').textContent} (Meta: 15h)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PROGRESO MENSUAL:
+   • GRESANOVA: ${document.getElementById('goal-gresanova').textContent}
+   • Salud Física: ${document.getElementById('goal-exercise').textContent}
+   • Educación: ${document.getElementById('goal-university').textContent}
+   • Política: ${document.getElementById('goal-politics').textContent}
+   • Espiritualidad: ${document.getElementById('goal-spiritual').textContent}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💪 RECORDATORIO:
+   "El 1% no se hace de un día, se hace de 1000 días
+    de consistencia, disciplina y visión clara."
+
+   ¡Sigue adelante! Tu éxito está en construcción. 🚀
+
+═══════════════════════════════════════════════════════════
+            `;
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(report));
+            element.setAttribute('download', `GRESANOVA_Reporte_${new Date().toISOString().split('T')[0]}.txt`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        
+        function downloadJSON() {
+            const tasks = {};
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                if (cb.id) tasks[cb.id] = cb.checked;
+            });
+            
+            const pillars = {};
+            document.querySelectorAll('input[type="range"]').forEach(r => {
+                if (r.id) pillars[r.id] = r.value;
+            });
+            
+            const data = {
+                fecha: new Date().toLocaleDateString('es-ES'),
+                hora: new Date().toLocaleTimeString('es-ES'),
+                tasks: tasks,
+                pillars: pillars,
+                progreso_diario: document.getElementById('daily-progress').textContent,
+                nivel: document.getElementById('level').textContent
+            };
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2)));
+            element.setAttribute('download', `GRESANOVA_Datos_${new Date().toISOString().split('T')[0]}.json`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        
+        // Inicializar
+        loadData();
+    </script>
+</body>
+</html>
