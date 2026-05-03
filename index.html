@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greco S Lagunas - Sistema de Élite</title>
+    <title> - Sistema de Élite Compartido</title>
     <style>
         * {
             margin: 0;
@@ -16,17 +16,91 @@
             background: linear-gradient(135deg, #8B0000 0%, #5D3A3A 50%, #8B0000 100%);
             min-height: 100vh;
             padding: 20px;
-            color: #f8f4f0;
+            color: #ffae5c;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: #fdf6f0;
+            background: #f6ab69;
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
             border: 1px solid #c9a227;
+        }
+        
+        /* SELECTOR DE PERFIL */
+        .profile-selector {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #c9a227;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .profile-label {
+            color: #ecf0f1;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .profile-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-btn {
+            padding: 10px 20px;
+            border: 2px solid #ecf0f1;
+            background: transparent;
+            color: #ecf0f1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(236, 240, 241, 0.2);
+        }
+        
+        .profile-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #ecf0f1;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .profile-name {
+            font-size: 16px;
+            font-weight: 600;
         }
         
         .header {
@@ -98,7 +172,7 @@
         }
         
         .time-block {
-            background: #f8f9fa;
+            background: #02284d;
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
@@ -137,7 +211,7 @@
         }
         
         .task input[type="checkbox"]:checked + label {
-            color: #999;
+            color: #555252;
             text-decoration: line-through;
         }
         
@@ -163,7 +237,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #021259 0%, #764ba2 100%);
             transition: width 0.3s ease;
             border-radius: 5px;
         }
@@ -176,8 +250,8 @@
         }
         
         .pillar-card {
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: rgb(238, 231, 233);
+            border: 2px solid #211d1d;
             border-radius: 12px;
             padding: 20px;
             text-align: center;
@@ -185,7 +259,7 @@
         }
         
         .pillar-card:hover {
-            border-color: #667eea;
+            border-color: #00115a;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
         }
         
@@ -210,7 +284,7 @@
         .pillar-value {
             font-size: 20px;
             font-weight: 700;
-            color: #667eea;
+            color: #060d2b;
         }
         
         .button-group {
@@ -256,7 +330,7 @@
         }
         
         .goal-item {
-            background: #f8f9fa;
+            background: #223f5c;
             padding: 20px;
             border-radius: 12px;
         }
@@ -275,6 +349,63 @@
         .goal-percent {
             color: #667eea;
             font-weight: 700;
+        }
+        
+        /* PANEL COMPARATIVO */
+        .comparison-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .comparison-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .comparison-card:hover {
+            border-color: #061145;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+        
+        .comparison-card .person-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .comparison-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-label {
+            color: #666;
+        }
+        
+        .comparison-value {
+            font-weight: 700;
+            color: #667eea;
         }
         
         .footer {
@@ -301,14 +432,33 @@
             .section h2 {
                 font-size: 22px;
             }
+            
+            .profile-selector {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- SELECTOR DE PERFIL -->
+        <div class="profile-selector">
+            <span class="profile-label">👥 Selecciona tu perfil:</span>
+            <div class="profile-buttons">
+                <button class="profile-btn active" onclick="switchProfile('greco')">Greco</button>
+                <button class="profile-btn" onclick="switchProfile('persona2')">Saul Nava</button>
+                <button class="profile-btn" onclick="switchProfile('persona3')">Akin Sandoval</button>
+            </div>
+            <div class="profile-info">
+                <div class="profile-avatar" id="avatar">G</div>
+                <div class="profile-name" id="current-user">Greco</div>
+            </div>
+        </div>
+        
         <div class="header">
-            <h1> Greco S Lagunas</h1>
-            <p>Sistema de Élite 1% - Rutina Personalizada</p>
+            <h1>Vida de CEOS</h1>
+            <p id="header-subtitle">Sistema de Élite 1% - Rutina Personalizada</p>
         </div>
         
         <div class="content">
@@ -332,13 +482,21 @@
                 </div>
             </div>
             
+            <!-- PANEL COMPARATIVO -->
+            <div class="comparison-section">
+                <h2>📊 Comparativa del Equipo</h2>
+                <div class="comparison-grid" id="comparison-grid">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </div>
+            
             <!-- RUTINA DIARIA -->
             <div class="section">
                 <h2> Rutina Diaria (5 AM - 10:30 PM)</h2>
                 
                 <!-- MAÑANA -->
                 <div class="time-block">
-                    <h3> Mañana (5:00 AM - 7:00 AM)</h3>
+                    <h3>Mañana (5:00 AM - 7:00 AM)</h3>
                     <div class="task">
                         <input type="checkbox" id="task1" class="task-morning" onchange="updateProgress()">
                         <label for="task1">5:00 AM - Meditación/Oración (15 min)</label>
@@ -411,17 +569,17 @@
             
             <!-- PILARES SEMANALES -->
             <div class="section">
-                <h2> Pilares Semanales</h2>
+                <h2>⭐ Pilares Semanales</h2>
                 <div class="pillars-grid">
                     <div class="pillar-card">
-                        <h4> GRESANOVA</h4>
+                        <h4>💼 GRESANOVA</h4>
                         <p class="goal">Meta: 30h/semana</p>
                         <input type="range" min="0" max="40" value="0" id="pillar-gresanova" onchange="updateWeekly()">
                         <div class="pillar-value" id="val-gresanova">0h</div>
                     </div>
                     <div class="pillar-card">
-                        <h4>🏋️ Ejercicio</h4>
-                        <p class="goal">Meta: 5.5h/semana</p>
+                        <h4>💪 Ejercicio</h4>
+                        <p class="goal">Meta: 10 h/semana</p>
                         <input type="range" min="0" max="10" value="0" id="pillar-exercise" onchange="updateWeekly()">
                         <div class="pillar-value" id="val-exercise">0h</div>
                     </div>
@@ -436,6 +594,12 @@
                         <p class="goal">Meta: 7h/semana</p>
                         <input type="range" min="0" max="15" value="0" id="pillar-politics" onchange="updateWeekly()">
                         <div class="pillar-value" id="val-politics">0h</div>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>☦️ Dios ✝️</h4>
+                        <p class="goal">Meta: 7h/semana</p>
+                        <input type="range" min="0" max="15" value="0" id="pillar-spiritual" onchange="updateWeekly()">
+                        <div class="pillar-value" id="val-spiritual">0h</div>
                     </div>
                 </div>
             </div>
@@ -483,10 +647,10 @@
                     <div class="goal-item">
                         <div class="goal-header">
                             <h4>Espiritualidad</h4>
-                            <span class="goal-percent" id="goal-spiritual">95%</span>
+                            <span class="goal-percent" id="goal-spiritual">0%</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress-fill" id="fill-spiritual" style="width: 95%"></div>
+                            <div class="progress-fill" id="fill-spiritual" style="width: 0%"></div>
                         </div>
                     </div>
                 </div>
@@ -497,6 +661,7 @@
                 <button onclick="resetDay()">🔄 Reiniciar Día</button>
                 <button onclick="downloadReport()" class="primary">📥 Descargar Reporte</button>
                 <button onclick="downloadJSON()" class="primary">💾 Guardar Progreso</button>
+                <button onclick="exportAllData()" class="primary">📤 Exportar Todo</button>
             </div>
         </div>
         
@@ -506,9 +671,51 @@
     </div>
     
     <script>
-        // Cargar datos guardados
+        // CONFIGURACIÓN DE USUARIOS
+        const users = {
+            'greco': { 
+                name: 'Greco', 
+                avatar: 'G',
+                color: '#667eea'
+            },
+            'persona2': { 
+                name: 'Saul Nava', 
+                avatar: 'P2',
+                color: '#764ba2'
+            },
+            'persona3': { 
+                name: 'Akin Sandoval', 
+                avatar: 'P3',
+                color: '#f093fb'
+            }
+        };
+        
+        let currentUser = 'greco';
+        
+        // CAMBIAR PERFIL
+        function switchProfile(userId) {
+            currentUser = userId;
+            saveData();
+            
+            // Actualizar botones
+            document.querySelectorAll('.profile-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Actualizar avatar y nombre
+            document.getElementById('avatar').textContent = users[userId].avatar;
+            document.getElementById('current-user').textContent = users[userId].name;
+            document.getElementById('header-subtitle').textContent = `Sistema de Élite 1% - ${users[userId].name}`;
+            
+            // Cargar datos del usuario
+            loadData();
+            updateComparison();
+        }
+        
+        // CARGAR DATOS GUARDADOS
         function loadData() {
-            const saved = localStorage.getItem('gresanova_data');
+            const saved = localStorage.getItem(`gresanova_${currentUser}`);
             if (saved) {
                 const data = JSON.parse(saved);
                 Object.keys(data.tasks).forEach(taskId => {
@@ -523,6 +730,21 @@
             updateProgress();
             updateWeekly();
             updateDate();
+        }
+        
+        // GUARDAR DATOS
+        function saveData() {
+            const tasks = {};
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                if (cb.id) tasks[cb.id] = cb.checked;
+            });
+            
+            const pillars = {};
+            document.querySelectorAll('input[type="range"]').forEach(r => {
+                if (r.id) pillars[r.id] = r.value;
+            });
+            
+            localStorage.setItem(`gresanova_${currentUser}`, JSON.stringify({ tasks, pillars }));
         }
         
         function updateDate() {
@@ -543,6 +765,7 @@
             document.getElementById('streak').textContent = morningDone === morningTotal ? '✓ Día completado' : '○ En progreso';
             
             saveData();
+            updateComparison();
         }
         
         function updateWeekly() {
@@ -550,45 +773,120 @@
             const exercise = parseInt(document.getElementById('pillar-exercise').value) || 0;
             const university = parseInt(document.getElementById('pillar-university').value) || 0;
             const politics = parseInt(document.getElementById('pillar-politics').value) || 0;
+            const spiritual = parseInt(document.getElementById('pillar-spiritual').value) || 0;
             
             document.getElementById('val-gresanova').textContent = gresanova + 'h';
             document.getElementById('val-exercise').textContent = exercise + 'h';
             document.getElementById('val-university').textContent = university + 'h';
             document.getElementById('val-politics').textContent = politics + 'h';
+            document.getElementById('val-spiritual').textContent = spiritual + 'h';
             
             const grPct = Math.round((gresanova / 40) * 100);
             const exPct = Math.round((exercise / 10) * 100);
             const unPct = Math.round((university / 50) * 100);
             const poPct = Math.round((politics / 15) * 100);
+            const spPct = Math.round((spiritual / 15) * 100);
             
             document.getElementById('goal-gresanova').textContent = grPct + '%';
             document.getElementById('goal-exercise').textContent = exPct + '%';
             document.getElementById('goal-university').textContent = unPct + '%';
             document.getElementById('goal-politics').textContent = poPct + '%';
+            document.getElementById('goal-spiritual').textContent = spPct + '%';
             
             document.getElementById('fill-gresanova').style.width = Math.min(grPct, 100) + '%';
             document.getElementById('fill-exercise').style.width = Math.min(exPct, 100) + '%';
             document.getElementById('fill-university').style.width = Math.min(unPct, 100) + '%';
             document.getElementById('fill-politics').style.width = Math.min(poPct, 100) + '%';
+            document.getElementById('fill-spiritual').style.width = Math.min(spPct, 100) + '%';
             
-            const weeklyAvg = Math.round((grPct + exPct + unPct + poPct) / 4);
+            const weeklyAvg = Math.round((grPct + exPct + unPct + poPct + spPct) / 5);
             document.getElementById('weekly-progress').textContent = weeklyAvg + '%';
             
             saveData();
+            updateComparison();
         }
         
-        function saveData() {
-            const tasks = {};
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                if (cb.id) tasks[cb.id] = cb.checked;
-            });
+        // PANEL COMPARATIVO
+        function updateComparison() {
+            const comparisonGrid = document.getElementById('comparison-grid');
+            comparisonGrid.innerHTML = '';
             
-            const pillars = {};
-            document.querySelectorAll('input[type="range"]').forEach(r => {
-                if (r.id) pillars[r.id] = r.value;
+            Object.keys(users).forEach(userId => {
+                const userData = localStorage.getItem(`gresanova_${userId}`);
+                let stats = {
+                    diario: 0,
+                    semanal: 0,
+                    gresanova: 0,
+                    ejercicio: 0,
+                    universidad: 0,
+                    politica: 0,
+                    espiritual: 0
+                };
+                
+                if (userData) {
+                    const data = JSON.parse(userData);
+                    
+                    // Calcular progreso diario
+                    const tasksChecked = Object.values(data.tasks).filter(v => v).length;
+                    stats.diario = Math.round((tasksChecked / 13) * 100);
+                    
+                    // Calcular pilares
+                    const gr = parseInt(data.pillars['pillar-gresanova']) || 0;
+                    const ex = parseInt(data.pillars['pillar-exercise']) || 0;
+                    const un = parseInt(data.pillars['pillar-university']) || 0;
+                    const po = parseInt(data.pillars['pillar-politics']) || 0;
+                    const sp = parseInt(data.pillars['pillar-spiritual']) || 0;
+                    
+                    stats.gresanova = gr;
+                    stats.ejercicio = ex;
+                    stats.universidad = un;
+                    stats.politica = po;
+                    stats.espiritual = sp;
+                    
+                    const grPct = Math.round((gr/40)*100);
+                    const exPct = Math.round((ex/10)*100);
+                    const unPct = Math.round((un/50)*100);
+                    const poPct = Math.round((po/15)*100);
+                    const spPct = Math.round((sp/15)*100);
+                    
+                    stats.semanal = Math.round(((grPct + exPct + unPct + poPct + spPct) / 5));
+                }
+                
+                const card = document.createElement('div');
+                card.className = 'comparison-card';
+                card.innerHTML = `
+                    <div class="person-name">${users[userId].name}</div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Hoy</span>
+                        <span class="comparison-value">${stats.diario}%</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Semana</span>
+                        <span class="comparison-value">${stats.semanal}%</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">GRESANOVA</span>
+                        <span class="comparison-value">${stats.gresanova}h</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Ejercicio</span>
+                        <span class="comparison-value">${stats.ejercicio}h</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Universidad</span>
+                        <span class="comparison-value">${stats.universidad}h</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Política</span>
+                        <span class="comparison-value">${stats.politica}h</span>
+                    </div>
+                    <div class="comparison-stat">
+                        <span class="comparison-label">Espiritualidad</span>
+                        <span class="comparison-value">${stats.espiritual}h</span>
+                    </div>
+                `;
+                comparisonGrid.appendChild(card);
             });
-            
-            localStorage.setItem('gresanova_data', JSON.stringify({ tasks, pillars }));
         }
         
         function resetDay() {
@@ -602,9 +900,16 @@
             const allTasks = document.querySelectorAll('.task-morning, .task-midday, .task-afternoon, .task-night');
             const checked = document.querySelectorAll('.task-morning:checked, .task-midday:checked, .task-afternoon:checked, .task-night:checked').length;
             
+            const gresanova = parseInt(document.getElementById('val-gresanova').textContent) || 0;
+            const exercise = parseInt(document.getElementById('val-exercise').textContent) || 0;
+            const university = parseInt(document.getElementById('val-university').textContent) || 0;
+            const politics = parseInt(document.getElementById('val-politics').textContent) || 0;
+            const spiritual = parseInt(document.getElementById('val-spiritual').textContent) || 0;
+            
             const report = `
 ╔═══════════════════════════════════════════════════════════╗
 ║           GRESANOVA - REPORTE DE PROGRESO                 ║
+║           ${users[currentUser].name.padEnd(50)}║
 ╚═══════════════════════════════════════════════════════════╝
 
 📅 Fecha: ${new Date().toLocaleDateString('es-ES')}
@@ -616,29 +921,32 @@
    • Tareas Completadas: ${checked}/${allTasks.length}
    • Porcentaje: ${Math.round((checked / allTasks.length) * 100)}%
    • Mañana: ${document.querySelectorAll('.task-morning:checked').length}/5
-   • Tarde: ${document.querySelectorAll('.task-afternoon:checked').length}/8
+   • Mediodía: ${document.querySelectorAll('.task-midday:checked').length}/2
+   • Tarde: ${document.querySelectorAll('.task-afternoon:checked').length}/1
    • Noche: ${document.querySelectorAll('.task-night:checked').length}/5
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
- PILARES SEMANALES:
-   • GRESANOVA: ${document.getElementById('val-gresanova').textContent} (Meta: 40h)
-   • Ejercicio: ${document.getElementById('val-exercise').textContent} (Meta: 10h)
-   • Universidad: ${document.getElementById('val-university').textContent} (Meta: 50h)
-   • Política: ${document.getElementById('val-politics').textContent} (Meta: 15h)
+⭐ PILARES SEMANALES:
+   • GRESANOVA: ${gresanova}h (Meta: 40h) → ${document.getElementById('goal-gresanova').textContent}
+   • Ejercicio: ${exercise}h (Meta: 10h) → ${document.getElementById('goal-exercise').textContent}
+   • Universidad: ${university}h (Meta: 50h) → ${document.getElementById('goal-university').textContent}
+   • Política: ${politics}h (Meta: 15h) → ${document.getElementById('goal-politics').textContent}
+   • Espiritualidad: ${spiritual}h (Meta: 15h) → ${document.getElementById('goal-spiritual').textContent}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
- PROGRESO MENSUAL:
+🎯 PROGRESO MENSUAL:
    • GRESANOVA: ${document.getElementById('goal-gresanova').textContent}
    • Salud Física: ${document.getElementById('goal-exercise').textContent}
    • Educación: ${document.getElementById('goal-university').textContent}
    • Política: ${document.getElementById('goal-politics').textContent}
    • Espiritualidad: ${document.getElementById('goal-spiritual').textContent}
+   • Promedio Semanal: ${document.getElementById('weekly-progress').textContent}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
- RECORDATORIO:
+📌 RECORDATORIO:
    "El 1% no se hace de un día, se hace de 1000 días
     de consistencia, disciplina y visión clara."
 
@@ -649,7 +957,7 @@
             
             const element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(report));
-            element.setAttribute('download', `GRESANOVA_Reporte_${new Date().toISOString().split('T')[0]}.txt`);
+            element.setAttribute('download', `GRESANOVA_${users[currentUser].name}_${new Date().toISOString().split('T')[0]}.txt`);
             element.style.display = 'none';
             document.body.appendChild(element);
             element.click();
@@ -668,17 +976,47 @@
             });
             
             const data = {
+                usuario: users[currentUser].name,
                 fecha: new Date().toLocaleDateString('es-ES'),
                 hora: new Date().toLocaleTimeString('es-ES'),
                 tasks: tasks,
                 pillars: pillars,
                 progreso_diario: document.getElementById('daily-progress').textContent,
-                nivel: document.getElementById('level').textContent
+                progreso_semanal: document.getElementById('weekly-progress').textContent,
+                nivel: document.getElementById('level').textContent,
+                objectivos_mensuales: {
+                    gresanova: document.getElementById('goal-gresanova').textContent,
+                    ejercicio: document.getElementById('goal-exercise').textContent,
+                    universidad: document.getElementById('goal-university').textContent,
+                    politica: document.getElementById('goal-politics').textContent,
+                    espiritualidad: document.getElementById('goal-spiritual').textContent
+                }
             };
             
             const element = document.createElement('a');
             element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data, null, 2)));
-            element.setAttribute('download', `GRESANOVA_Datos_${new Date().toISOString().split('T')[0]}.json`);
+            element.setAttribute('download', `GRESANOVA_${users[currentUser].name}_${new Date().toISOString().split('T')[0]}.json`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+        
+        function exportAllData() {
+            const allUsersData = {};
+            Object.keys(users).forEach(userId => {
+                const userData = localStorage.getItem(`gresanova_${userId}`);
+                allUsersData[users[userId].name] = userData ? JSON.parse(userData) : {};
+            });
+            
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                usuarios: allUsersData
+            };
+            
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(exportData, null, 2)));
+            element.setAttribute('download', `GRESANOVA_Equipo_Completo_${new Date().toISOString().split('T')[0]}.json`);
             element.style.display = 'none';
             document.body.appendChild(element);
             element.click();
@@ -687,6 +1025,7 @@
         
         // Inicializar
         loadData();
+        updateComparison();
     </script>
 </body>
 </html>
